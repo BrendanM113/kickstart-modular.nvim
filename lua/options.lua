@@ -3,11 +3,28 @@
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
+vim.cmd 'set expandtab'
+vim.cmd 'set tabstop=2'
+vim.cmd 'set softtabstop=2'
+vim.cmd 'set shiftwidth=2'
+
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+vim.keymap.set('n', '<C-f>', '<C-f>zz')
+vim.keymap.set('n', '<C-b>', '<C-b>zz')
+
+vim.keymap.set('n', ']q', '/\\v\\\\(mc|tf|shorta|question)<CR>', { desc = 'Next question command' })
+vim.keymap.set('n', '[q', '?\\v\\\\(mc|tf|shorta|question)<CR>', { desc = 'Previous question command' })
+vim.keymap.set('n', '<leader>cd', ':cd %:p:h<CR>:pwd<CR>', { desc = 'Change dir to current file' })
+
+-- Enable syntax highlighting
+vim.cmd 'syntax on'
+
 -- Make line numbers default
 vim.o.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.o.relativenumber = true
+vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
@@ -24,7 +41,11 @@ vim.schedule(function()
 end)
 
 -- Enable break indent
+vim.o.linebreak = true
 vim.o.breakindent = true
+vim.opt.autoindent = true
+vim.opt.smartindent = true
+vim.opt.cindent = true
 
 -- Save undo history
 vim.o.undofile = true
@@ -54,8 +75,7 @@ vim.o.splitbelow = true
 --  It is very similar to `vim.o` but offers an interface for conveniently interacting with tables.
 --   See `:help lua-options`
 --   and `:help lua-options-guide`
-vim.o.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.o.list = false
 
 -- Preview substitutions live, as you type!
 vim.o.inccommand = 'split'
@@ -70,5 +90,27 @@ vim.o.scrolloff = 10
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
 vim.o.confirm = true
+
+-- Auto retab on save for tex files
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = { '*.tex', '*.latex' },
+  callback = function()
+    vim.cmd 'retab'
+  end,
+})
+
+vim.api.nvim_create_augroup('alpha_on_empty', { clear = true })
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'BDeletePre *',
+  group = 'alpha_on_empty',
+  callback = function()
+    local bufnr = vim.api.nvim_get_current_buf()
+    local name = vim.api.nvim_buf_get_name(bufnr)
+
+    if name == '' then
+      vim.cmd [[:Alpha | bd#]]
+    end
+  end,
+})
 
 -- vim: ts=2 sts=2 sw=2 et

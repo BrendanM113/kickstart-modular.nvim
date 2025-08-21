@@ -21,14 +21,43 @@ return {
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              -- Load only specific language snippets, excluding text/English
+              require('luasnip.loaders.from_vscode').lazy_load {
+                include = { 'tex', 'latex', 'plaintex', 'svelte' }, -- Load LaTeX and Svelte snippets
+                exclude = { 'text', 'plaintext', 'english' },
+              }
+            end,
+          },
         },
-        opts = {},
+        opts = {
+          -- Set default indentation to 2 spaces
+          default_expand_options = {
+            indentation = '  ', -- 2 spaces
+          },
+        },
+        config = function()
+          -- Configure LuaSnip to use 2 spaces for indentation
+          local luasnip = require 'luasnip'
+          luasnip.config.set_config {
+            -- Use 2 spaces for indentation
+            ext_opts = {
+              [require('luasnip.util.types').choiceNode] = {
+                active = {
+                  virt_text = { { '●', 'Orange' } },
+                },
+              },
+            },
+            snip_env = {
+              -- Set tab character to 2 spaces
+              t = function(text)
+                return luasnip.text_node(text:gsub('\t', '  '))
+              end,
+            },
+          }
+        end,
       },
       'folke/lazydev.nvim',
     },
@@ -79,6 +108,9 @@ return {
         default = { 'lsp', 'path', 'snippets', 'lazydev' },
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+          snippets = {
+            min_keyword_length = 2,
+          },
         },
       },
 

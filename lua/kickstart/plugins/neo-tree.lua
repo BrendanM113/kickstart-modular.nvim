@@ -11,14 +11,25 @@ return {
   },
   lazy = false,
   keys = {
-    { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
+    { '\\', ':Neotree toggle<CR>', desc = 'Toggle NeoTree', silent = true },
   },
   opts = {
-    filesystem = {
-      window = {
-        mappings = {
-          ['\\'] = 'close_window',
+    window = {
+      position = 'float',
+      popup = {
+        size = {
+          height = '80%', -- can be a percentage or number of rows
+          width = '60%',
         },
+        position = '50%', -- center it in the screen
+      },
+    },
+    filesystem = {
+      filtered_items = {
+        visible = false,
+        hide_dotfiles = true,
+        hide_gitignored = true,
+        hide_hidden = true,
       },
     },
   },
