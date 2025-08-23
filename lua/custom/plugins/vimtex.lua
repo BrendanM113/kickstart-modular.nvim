@@ -45,34 +45,5 @@ return {
         vim.cmd 'TSBufDisable highlight'
       end,
     })
-    vim.api.nvim_create_autocmd('FileType', {
-      pattern = 'tex',
-      callback = function()
-        -- Normal mode mapping (optional)
-        vim.keymap.set('n', '<leader>ic', '<Plug>(vimtex-cmd-create)', {
-          buffer = true,
-          desc = 'Wrap with LaTeX command',
-        })
-
-        -- Visual mode mapping
-        vim.keymap.set('v', '<leader>ic', '<Plug>(vimtex-cmd-create)', {
-          buffer = true,
-          desc = 'Wrap selection with LaTeX command',
-        })
-      end,
-    })
-    vim.api.nvim_create_autocmd('FileType', {
-      pattern = 'tex',
-      callback = function()
-        vim.keymap.set('n', '<leader>ie', '<Plug>(vimtex-env-surround-line)', {
-          buffer = true,
-          desc = 'Surround line with LaTeX environment',
-        })
-        vim.keymap.set('v', '<leader>ie', '<Plug>(vimtex-env-surround-visual)', {
-          buffer = true,
-          desc = 'Surround line with LaTeX environment',
-        })
-      end,
-    })
   end,
 }

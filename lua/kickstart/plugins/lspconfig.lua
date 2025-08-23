@@ -251,6 +251,7 @@ return {
         },
         texlab = {},
         svelte = {},
+        marksman = {},
         emmet_language_server = {
           filetypes = {
             'html',

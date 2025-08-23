@@ -93,6 +93,41 @@ vim.g.maplocalleader = ' '
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+-- Fix for missing vim.append function (compatibility shim)
+-- This addresses issues with LaTeX filetype detection
+if not vim.append then
+  vim.append = function(lnum, lines)
+    local bufnr = vim.api.nvim_get_current_buf()
+    if type(lines) == "string" then
+      lines = {lines}
+    end
+    -- Use pcall to safely handle any buffer operation errors
+    pcall(vim.api.nvim_buf_set_lines, bufnr, lnum, lnum, false, lines)
+  end
+end
+
+-- Additional compatibility for older Vim functions that might be called
+if not vim.fn.append then
+  vim.fn.append = vim.append
+end
+
+-- Early autocmd to handle LaTeX file issues before plugins load
+vim.api.nvim_create_autocmd({"BufReadPre", "BufNewFile"}, {
+  pattern = "*.tex",
+  callback = function()
+    -- Ensure vim.append is available before any filetype detection
+    if not vim.append then
+      vim.append = function(lnum, lines)
+        local bufnr = vim.api.nvim_get_current_buf()
+        if type(lines) == "string" then
+          lines = {lines}
+        end
+        pcall(vim.api.nvim_buf_set_lines, bufnr, lnum, lnum, false, lines)
+      end
+    end
+  end,
+})
+
 -- [[ Setting options ]]
 require 'options'
 

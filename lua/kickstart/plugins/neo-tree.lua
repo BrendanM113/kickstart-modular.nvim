@@ -15,14 +15,15 @@ return {
   },
   opts = {
     window = {
-      position = 'float',
-      popup = {
-        size = {
-          height = '80%', -- can be a percentage or number of rows
-          width = '60%',
-        },
-        position = '50%', -- center it in the screen
-      },
+      size = 30
+      -- position = 'float',
+      -- popup = {
+      --   size = {
+      --     height = '80%', -- can be a percentage or number of rows
+      --     width = '60%',
+      --   },
+      --   position = '50%', -- center it in the screen
+      -- },
     },
     filesystem = {
       filtered_items = {

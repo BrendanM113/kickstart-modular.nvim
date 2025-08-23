@@ -13,6 +13,9 @@ vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', '<C-f>', '<C-f>zz')
 vim.keymap.set('n', '<C-b>', '<C-b>zz')
 
+-- vim.keymap.set({ "n", "x" }, "s", "<Nop>")
+vim.o.timeoutlen = 2000
+
 vim.keymap.set('n', ']q', '/\\v\\\\(mc|tf|shorta|question)<CR>', { desc = 'Next question command' })
 vim.keymap.set('n', '[q', '?\\v\\\\(mc|tf|shorta|question)<CR>', { desc = 'Previous question command' })
 vim.keymap.set('n', '<leader>cd', ':cd %:p:h<CR>:pwd<CR>', { desc = 'Change dir to current file' })
