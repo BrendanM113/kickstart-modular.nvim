@@ -269,6 +269,53 @@ return {
             return filetype ~= 'svelte'
           end,
         },
+        pyright = {
+          settings = {
+            python = {
+              analysis = {
+                typeCheckingMode = 'off',
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+                diagnosticMode = 'openFilesOnly',
+                autoImportCompletions = true,
+                -- Disable specific diagnostics
+                diagnosticSeverityOverrides = {
+                  reportUnusedImport = 'none',
+                  reportUnusedClass = 'none',
+                  reportUnusedFunction = 'none',
+                  reportUnusedVariable = 'none',
+                  reportDuplicateImport = 'none',
+                  reportWildcardImportFromLibrary = 'none',
+                  reportOptionalSubscript = 'none',
+                  reportOptionalMemberAccess = 'none',
+                  reportOptionalCall = 'none',
+                  reportOptionalIterable = 'none',
+                  reportOptionalContextManager = 'none',
+                  reportOptionalOperand = 'none',
+                  reportGeneralTypeIssues = 'none',
+                  reportMissingImports = 'none',
+                },
+              },
+            },
+          },
+          on_attach = function(client, bufnr)
+            print 'Pyright attached, disabling diagnostics'
+            -- Completely disable diagnostics from Pyright
+            client.server_capabilities.diagnosticProvider = false
+            client.server_capabilities.publishDiagnostics = false
+            -- Keep only completion capabilities
+            client.server_capabilities.documentHighlightProvider = false
+          end,
+        },
+        ruff = {
+          on_attach = function(client, bufnr)
+            print 'Ruff attached, keeping diagnostics only'
+            -- Disable hover and formatting from Ruff (keep diagnostics)
+            client.server_capabilities.hoverProvider = false
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+          end,
+        },
       }
 
       -- Ensure the servers and tools above are installed

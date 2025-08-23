@@ -34,7 +34,7 @@ return {
         latex = { 'expandtab', 'latexindent' },
         tex = { 'expandtab', 'latexindent' },
         -- Conform can also run multiple formatters sequentially
-        python = { "basedpyright", "ruff" },
+        python = { "pyright", "ruff" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         javascript = { "prettierd", "prettier", stop_after_first = true },
