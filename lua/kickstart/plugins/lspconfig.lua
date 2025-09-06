@@ -316,6 +316,50 @@ return {
             client.server_capabilities.documentRangeFormattingProvider = false
           end,
         },
+        cssls = {
+          settings = {
+            css = {
+              lint = {
+                unknownAtRules = 'ignore',
+              },
+              validate = true,
+              customData = { 
+                {
+                  version = 1.1,
+                  atDirectives = {
+                    {
+                      name = "@theme",
+                      description = "Tailwind CSS theme directive"
+                    }
+                  }
+                }
+              }
+            },
+            scss = {
+              lint = {
+                unknownAtRules = 'ignore',
+              },
+            },
+            less = {
+              lint = {
+                unknownAtRules = 'ignore',
+              },
+            },
+          },
+        },
+        tailwindcss = {
+          filetypes = {
+            'templ',
+            'vue',
+            'html',
+            'astro',
+            'javascript',
+            'typescript',
+            'react',
+            'svelte',
+            'htmlangular',
+          },
+        },
       }
 
       -- Ensure the servers and tools above are installed

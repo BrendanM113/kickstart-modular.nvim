@@ -5,6 +5,9 @@
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+vim.keymap.set({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
+vim.keymap.set({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
@@ -54,8 +57,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 local function get_class_name()
   local node = vim.treesitter.get_node()
   while node do
-    if node:type() == "class_definition" then
-      local name_node = node:field("name")[1]
+    if node:type() == 'class_definition' then
+      local name_node = node:field('name')[1]
       if name_node then
         local class_name = vim.treesitter.get_node_text(name_node, 0)
         return class_name
@@ -69,20 +72,20 @@ end
 local function render_scene()
   local class_name = get_class_name()
   if not class_name then
-    print("No class name found at cursor!")
+    print 'No class name found at cursor!'
     return
   end
 
-  local file_path = vim.fn.expand('%:p')
-  local dir_name = vim.fn.expand('%:p:h')
-  local file_name = vim.fn.expand('%:t:r')
+  local file_path = vim.fn.expand '%:p'
+  local dir_name = vim.fn.expand '%:p:h'
+  local file_name = vim.fn.expand '%:t:r'
   local video_path = dir_name .. '/media/videos/' .. file_name .. '/480p15/' .. class_name .. '.mp4'
 
   local cmd = string.format("manim -ql '%s' '%s' && mpv '%s'", file_path, class_name, video_path)
 
-  require("toggleterm.terminal").Terminal:new({ cmd = cmd }):toggle()
+  require('toggleterm.terminal').Terminal:new({ cmd = cmd }):toggle()
 end
 
-vim.keymap.set("n", "<leader>mm", render_scene, { noremap = false, silent = true })
-
+vim.keymap.set('n', '<leader>mm', render_scene, { noremap = false, silent = true })
+vim.keymap.set('n', '<F12>', ':Copilot toggle<CR>', { desc = 'Toggle GitHub Copilot' })
 -- vim: ts=2 sts=2 sw=2 et

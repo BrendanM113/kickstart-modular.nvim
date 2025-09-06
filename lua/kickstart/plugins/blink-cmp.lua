@@ -26,7 +26,7 @@ return {
             config = function()
               -- Load only specific language snippets, excluding text/English
               require('luasnip.loaders.from_vscode').lazy_load {
-                include = { 'tex', 'latex', 'plaintex', 'svelte' }, -- Load LaTeX and Svelte snippets
+                include = { 'tex', 'latex', 'plaintex', 'svelte', 'markdown' }, -- Load LaTeX and Svelte snippets
                 exclude = { 'text', 'plaintext', 'english' },
               }
             end,
