@@ -169,7 +169,7 @@ return {
         callback = function(event)
           local client = vim.lsp.get_client_by_id(event.data.client_id)
           if client and client.name == 'emmet_language_server' then
-            local filetype = vim.api.nvim_buf_get_option(event.buf, 'filetype')
+            local filetype = vim.bo[event.buf].filetype
             if filetype == 'svelte' then
               vim.lsp.buf_detach_client(event.buf, client.id)
             end
@@ -265,7 +265,7 @@ return {
           },
           -- Explicitly prevent attachment to svelte files
           autostart = function(bufnr)
-            local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype')
+            local filetype = vim.bo[bufnr].filetype
             return filetype ~= 'svelte'
           end,
         },
