@@ -41,6 +41,9 @@ return {
         config = function()
           -- Configure LuaSnip to use 2 spaces for indentation
           local luasnip = require 'luasnip'
+
+          luasnip.add_snippets('tex', require 'snippets.latex')
+
           luasnip.config.set_config {
             -- Use 2 spaces for indentation
             ext_opts = {
