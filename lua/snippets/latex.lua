@@ -12,6 +12,8 @@ return {
     t '}',
   }),
 
+
+
   s('qp', {
     t {
       '\\documentclass[addpoints,12pt]{exam}',
@@ -58,11 +60,24 @@ return {
       '% ==========================',
       '% CUSTOM INFO',
       '% ==========================',
-      '\\newcommand{\\instructor}{\\textbf{Mr. Murray}}',
-      '\\newcommand{\\class}{\\textbf{H Physics}}',
-      '\\newcommand{\\examnum}{\\textbf{Unit 3/4 Test}}',
-      '\\newcommand{\\examdate}{10/28/25}',
+      '\\newcommand{\\class}{\\textbf{',
+    },
+    i(1, 'class'),
+    t {
+      '}}',
+      '\\newcommand{\\examnum}{\\textbf{',
+    },
+    i(2, 'exam number'),
+    t {
+      '}}',
+      '\\newcommand{\\examdate}{',
+    },
+    i(3, 'date'),
+    t {
+      '}',
       '\\newcommand{\\name}{\\hfill \\textbf{Name}: \\underline{\\hspace{3in}}}',
+      '\\newcommand{\\acl}{\\text{m}/\\text{s}^2}',
+      '\\newcommand{\\dg}{^\\circ}',
       '\\def\\tiscreenX{16}',
       '\\def\\tiscreenY{8}',
       '\\newcommand{\\mc}{\\question[2]}',
@@ -77,5 +92,8 @@ return {
       '% \\noprintanswers',
       '\\extrawidth{0.5in}',
     },
+    t { '', '\\begin{document}', '\\begin{questions}', '' },
+    i(0),
+    t { '', '\\end{questions}', '\\end{document}' },
   }),
-  }
+}
