@@ -12,7 +12,38 @@ return {
     t '}',
   }),
 
-
+  s('mcq', {
+    t {
+      '\\mc',
+      '',
+    },
+    i(1, 'QUESTION'),
+    t {
+      '',
+      '\\begin{choices}',
+      '  \\choice ',
+    },
+    i(2, 'Choice 1'),
+    t {
+      '',
+      '  \\choice ',
+    },
+    i(3, 'Choice 2'),
+    t {
+      '',
+      '  \\choice ',
+    },
+    i(4, 'Choice 3'),
+    t {
+      '',
+      '  \\choice ',
+    },
+    i(5, 'Choice 4'),
+    t {
+      '',
+      '\\end{choices}',
+    },
+  }),
 
   s('qp', {
     t {

@@ -43,7 +43,7 @@ return {
           local luasnip = require 'luasnip'
 
           luasnip.add_snippets('tex', require 'snippets.latex')
-
+          luasnip.add_snippets('svelte', require 'snippets.svelte')
           luasnip.config.set_config {
             -- Use 2 spaces for indentation
             ext_opts = {
@@ -104,7 +104,7 @@ return {
       completion = {
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
-        documentation = { auto_show = false, auto_show_delay_ms = 500 },
+        documentation = { auto_show = false, auto_show_delay_ms = 1000 },
       },
 
       sources = {
