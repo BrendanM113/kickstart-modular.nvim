@@ -163,4 +163,19 @@ return {
     i(0),
     t { '', '\\end{questions}', '\\end{document}' },
   }),
+
+  s('hdr', {
+    t {
+      '\\pagestyle{headandfoot}',
+      '\\ifprintanswers',
+      '  \\firstpageheader{\\Large{{\\class}}}{\\Large{\\examnum}}{\\Large \\textbf{ANSWER KEY}}',
+      '  \\runningheader{\\class\\ - \\textbf{ANSWERS}}{Page \\thepage\\ of \\numpages}{\\examdate}',
+      '  \\runningheadrule',
+      '\\else',
+      '  \\firstpageheader{\\Large{{\\class}}}{\\Large{\\examnum}}{\\Large \\textbf{\\examdate}}',
+      '  \\runningheader{\\class\\ - \\examnum}{Page \\thepage\\ of \\numpages}{\\examdate}',
+      '  \\runningheadrule',
+      '\\fi',
+    },
+  }),
 }
