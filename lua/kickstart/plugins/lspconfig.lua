@@ -250,7 +250,32 @@ return {
           },
         },
         texlab = {},
-        svelte = {},
+        svelte = {
+          settings = {
+            svelte = {
+              plugin = {
+                css = {
+                  diagnostics = {
+                    enable = false,
+                  },
+                  completions = {
+                    enable = true,
+                  },
+                },
+              },
+            },
+          },
+          on_attach = function(client, bufnr)
+            -- Disable CSS diagnostics from svelte language server
+            if client.name == 'svelte' then
+              client.server_capabilities.diagnosticProvider = vim.tbl_deep_extend('force', client.server_capabilities.diagnosticProvider or {}, {
+                documentSelector = vim.tbl_filter(function(selector)
+                  return selector.language ~= 'css'
+                end, client.server_capabilities.diagnosticProvider.documentSelector or {}),
+              })
+            end
+          end,
+        },
         marksman = {},
         emmet_language_server = {
           filetypes = {
@@ -317,19 +342,32 @@ return {
           end,
         },
         cssls = {
+          filetypes = { 'css', 'scss', 'less' }, -- Explicitly exclude svelte
           settings = {
             css = {
               lint = {
                 unknownAtRules = 'ignore',
               },
               validate = true,
-              customData = { 
+              customData = {
                 {
                   version = 1.1,
                   atDirectives = {
                     {
                       name = "@theme",
                       description = "Tailwind CSS theme directive"
+                    },
+                    {
+                      name = "@apply",
+                      description = "Apply Tailwind utility classes"
+                    },
+                    {
+                      name = "@reference",
+                      description = "Reference a CSS file for IntelliSense in Tailwind v4"
+                    },
+                    {
+                      name = "@source",
+                      description = "Define source paths for Tailwind v4 content scanning"
                     }
                   }
                 }

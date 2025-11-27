@@ -109,6 +109,8 @@ return {
       '\\newcommand{\\name}{\\hfill \\textbf{Name}: \\underline{\\hspace{3in}}}',
       '\\newcommand{\\acl}{\\text{m}/\\text{s}^2}',
       '\\newcommand{\\dg}{^\\circ}',
+      '\\newcommand{\\scin}[2]{$#1 \times 10^{#2}$}',
+      '\\frenchspacing',
       '\\def\\tiscreenX{16}',
       '\\def\\tiscreenY{8}',
       '\\newcommand{\\mc}{\\question[2]}',
@@ -177,5 +179,13 @@ return {
       '  \\runningheadrule',
       '\\fi',
     },
+  }),
+
+  s('que', {
+    t '\\question[',
+    i(1, 'pts'),
+    t { ']', '' },
+    i(2, 'question'),
+    t { '', '\\vfill', '' },
   }),
 }
