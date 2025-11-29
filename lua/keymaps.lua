@@ -89,5 +89,8 @@ end
 vim.keymap.set('n', '<leader>mm', render_scene, { noremap = false, silent = true })
 vim.keymap.set('n', '<F12>', ':Copilot toggle<CR>', { desc = 'Toggle GitHub Copilot' })
 
+-- Todo comments
+vim.keymap.set('n', '<leader>tq', ':TodoQuickFix<CR>', { desc = '[T]odo [Q]uickfix list' })
+vim.keymap.set('n', '<leader>tt', ':TodoTelescope<CR>', { desc = '[T]odo [T]elescope' })
 
 -- vim: ts=2 sts=2 sw=2 et

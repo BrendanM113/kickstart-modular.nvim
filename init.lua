@@ -93,6 +93,9 @@ vim.g.maplocalleader = ' '
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+vim.opt.termguicolors = true
+
+
 -- Fix for missing vim.append function (compatibility shim)
 -- This addresses issues with LaTeX filetype detection
 if not vim.append then
