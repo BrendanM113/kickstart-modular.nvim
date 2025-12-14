@@ -109,6 +109,12 @@ return {
           --  the definition of its *type*, not where it was *defined*.
           map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
 
+          -- Show hover documentation for the symbol under your cursor
+          map('gh', vim.lsp.buf.hover, '[G]et [H]over documentation')
+
+          -- Disable the default K keymap to prevent accidental hover popups
+          vim.keymap.set('n', 'K', '<Nop>', { buffer = event.buf, desc = 'Disabled (use gh for hover)' })
+
           -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
           ---@param client vim.lsp.Client
           ---@param method vim.lsp.protocol.Method
@@ -397,6 +403,26 @@ return {
             'svelte',
             'htmlangular',
           },
+        },
+        tinymist = {
+          on_attach = function(client, bufnr)
+            -- Start with signature help and hover disabled to prevent automatic popups
+            client.server_capabilities.signatureHelpProvider = false
+            client.server_capabilities.hoverProvider = false
+
+            -- Add toggle keybind
+            vim.keymap.set('n', '<leader>th', function()
+              if client.server_capabilities.hoverProvider == false then
+                client.server_capabilities.hoverProvider = true
+                client.server_capabilities.signatureHelpProvider = true
+                print("Typst hover enabled")
+              else
+                client.server_capabilities.hoverProvider = false
+                client.server_capabilities.signatureHelpProvider = false
+                print("Typst hover disabled")
+              end
+            end, { buffer = bufnr, desc = '[T]oggle Typst [H]over' })
+          end,
         },
       }
 

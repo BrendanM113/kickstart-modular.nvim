@@ -44,6 +44,7 @@ return {
 
           luasnip.add_snippets('tex', require 'snippets.latex')
           luasnip.add_snippets('svelte', require 'snippets.svelte')
+          luasnip.add_snippets('typst', require 'snippets.typst')
           luasnip.config.set_config {
             -- Use 2 spaces for indentation
             ext_opts = {
@@ -116,7 +117,9 @@ return {
           },
         },
       },
-
+      documentation = {
+        auto_show = false,
+      },
       snippets = { preset = 'luasnip' },
 
       -- Blink.cmp includes an optional, recommended rust fuzzy matcher,
@@ -129,7 +132,7 @@ return {
       fuzzy = { implementation = 'lua' },
 
       -- Shows a signature help window while you type arguments for a function
-      signature = { enabled = true },
+      signature = { enabled = false },
     },
   },
 }

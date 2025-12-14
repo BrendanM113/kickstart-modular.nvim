@@ -93,4 +93,14 @@ vim.keymap.set('n', '<F12>', ':Copilot toggle<CR>', { desc = 'Toggle GitHub Copi
 vim.keymap.set('n', '<leader>tq', ':TodoQuickFix<CR>', { desc = '[T]odo [Q]uickfix list' })
 vim.keymap.set('n', '<leader>tt', ':TodoTelescope<CR>', { desc = '[T]odo [T]elescope' })
 
+-- Close floating windows (hover, diagnostics, etc.) in insert mode
+vim.keymap.set('i', '<C-w>', function()
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    local config = vim.api.nvim_win_get_config(win)
+    if config.relative ~= '' then
+      vim.api.nvim_win_close(win, false)
+    end
+  end
+end, { desc = 'Close floating windows' })
+
 -- vim: ts=2 sts=2 sw=2 et
